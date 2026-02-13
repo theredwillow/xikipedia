@@ -87,7 +87,7 @@ with bz2.open(DUMP_ARTICLES, "rt", encoding='utf-8') as f:
             current_entry += "  </page>"
             process_page(current_entry)
             current_entry = None
-        if current_entry == None:
+        if current_entry is None:
             continue
         current_entry += line
 
