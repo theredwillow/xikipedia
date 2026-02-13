@@ -1,1 +1,6 @@
+# Ignore users personal project settings
 .vscode
+
+# Ignore users personal wikipedia stores
+*.xml.bz2
+*.sql.gz
