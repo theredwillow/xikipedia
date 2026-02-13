@@ -1,4 +1,5 @@
-import json, xmltodict
+import json
+import xmltodict
 import mwparserfromhell
 import gzip
 import bz2
