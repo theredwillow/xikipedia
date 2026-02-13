@@ -77,7 +77,7 @@ with gzip.open(DUMP_PAGELINKS, "rt") as f:
                 links[int(a)].append(int(b))
 
 current_entry = None
-with bz2.open(DUMP_ARTICLES, "rt") as f:
+with bz2.open(DUMP_ARTICLES, "rt", encoding='utf-8') as f:
     for i, line in enumerate(f):
         if i % 1000000 == 0:
             print(f"{i/30_093_139*100:.02f}%")
