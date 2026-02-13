@@ -47,7 +47,7 @@ def process_page(xml):
     if thumb is None:
         if "[[File:" in text:
             thumb = text.split("[[File:")[1].split("|")[0].split("]")[0].strip()
-    if thumb is not None and len(thumb.strip()) == 0:
+    elif len(thumb.strip()) == 0:
         thumb = f"{title}.png"
 
     all_pages[title] = {
@@ -83,7 +83,7 @@ with bz2.open(DUMP_ARTICLES, "rt", encoding='utf-8') as f:
             print(f"Processing links... {i/30_093_139*100:.02f}%", end='\r')
         if line == "  <page>\n":
             current_entry = ""
-        if line == "  </page>\n":
+        elif line == "  </page>\n":
             current_entry += "  </page>"
             process_page(current_entry)
             current_entry = None
