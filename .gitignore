@@ -4,3 +4,4 @@
 # Ignore users personal wikipedia stores
 *.xml.bz2
 *.sql.gz
+smoldata.json
