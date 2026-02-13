@@ -68,9 +68,9 @@ print("Processing links...")
 links = {}
 INSERT_SYNTAX = "INSERT INTO `pagelinks` VALUES "
 with gzip.open(DUMP_PAGELINKS, "rt") as f:
-    for l in f:
-        if l.startswith(INSERT_SYNTAX):
-            for v in l[len(INSERT_SYNTAX)+1:-3].split("),("):
+    for line in f:
+        if line.startswith(INSERT_SYNTAX):
+            for v in line[len(INSERT_SYNTAX)+1:-3].split("),("):
                 a,_,b = v.split(",")
                 if int(a) not in links:
                     links[int(a)] = []    
@@ -78,18 +78,18 @@ with gzip.open(DUMP_PAGELINKS, "rt") as f:
 
 current_entry = None
 with bz2.open(DUMP_ARTICLES, "rt") as f:
-    for i,l in enumerate(f):
+    for i, line in enumerate(f):
         if i % 1000000 == 0:
             print(f"{i/30_093_139*100:.02f}%")
-        if l == "  <page>\n":
+        if line == "  <page>\n":
             current_entry = ""
-        if l == "  </page>\n":
+        if line == "  </page>\n":
             current_entry += "  </page>"
             process_page(current_entry)
             current_entry = None
         if current_entry == None:
             continue
-        current_entry += l
+        current_entry += line
 
 print("Subcategories...")
 subCategories = {}
