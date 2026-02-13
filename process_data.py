@@ -64,7 +64,7 @@ def process_page(xml):
             all_categories[category] = []
         all_categories[category].append(title)
 
-print("Processing links...")
+print("Processing links...", end='\r')
 links = {}
 INSERT_SYNTAX = "INSERT INTO `pagelinks` VALUES "
 with gzip.open(DUMP_PAGELINKS, "rt") as f:
@@ -80,7 +80,7 @@ current_entry = None
 with bz2.open(DUMP_ARTICLES, "rt", encoding='utf-8') as f:
     for i, line in enumerate(f):
         if i % 1000000 == 0:
-            print(f"{i/30_093_139*100:.02f}%")
+            print(f"Processing links... {i/30_093_139*100:.02f}%", end='\r')
         if line == "  <page>\n":
             current_entry = ""
         if line == "  </page>\n":
@@ -90,6 +90,7 @@ with bz2.open(DUMP_ARTICLES, "rt", encoding='utf-8') as f:
         if current_entry is None:
             continue
         current_entry += line
+    print("Processing links... done.")
 
 print("Subcategories...")
 subCategories = {}
